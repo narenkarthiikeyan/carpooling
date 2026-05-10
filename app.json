@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "carpool-app",
+    "slug": "carpool-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyBlMciVfNGMCXvdfjULDu8dQ270_7sv57w"
+      },
+      "bundleIdentifier": "com.yourcompany.carpoolapp",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app needs access to location to track your ride.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "This app needs access to location to track your ride in the background.",
+        "UIBackgroundModes": ["location"],
+        "NSLocationAlwaysUsageDescription": "This app needs access to location to track your ride in the background."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "YOUR_ANDROID_MAPS_API_KEY"
+        }
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location.",
+          "locationAlwaysPermission": "Allow $(PRODUCT_NAME) to use your location in the background.",
+          "isIosBackgroundLocationEnabled": true,
+          "isAndroidBackgroundLocationEnabled": true
+        }
+      ]
+    ]
+  }
+}

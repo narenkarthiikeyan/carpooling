@@ -1,0 +1,66 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId);
+    }
+    
+    // Regular Rides Collection
+    match /rides/{rideId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isAuthenticated() && 
+        (resource.data.driverId == request.auth.uid || 
+         resource.data.passengerId == request.auth.uid);
+    }
+    
+    // Ride Requests Collection
+    match /rideRequests/{rideId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Temporary Updates Collection
+    match /tempRideUpdates/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Payments Collection
+    match /payments/{paymentId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Ratings Collection
+    match /ratings/{ratingId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Driver Stats Collection
+    match /driverStats/{driverId} {
+      allow read, write: if isAuthenticated();
+    }
+    
+    // Long Distance Rides Collection
+    match /longDistanceRides/{rideId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated();
+      allow delete: if isAuthenticated() && resource.data.driverId == request.auth.uid;
+    }
+    
+    // Long Distance Requests Collection
+    match /longDistanceRequests/{requestId} {
+      allow read, write: if isAuthenticated();
+    }
+  }
+}
